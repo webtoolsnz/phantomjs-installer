@@ -24,9 +24,9 @@ class Installer
 
     const PHANTOMJS_TARGETDIR = '/jakoch/phantomjs';
 
-    const PHANTOMJS_CHMODE = 0770; // octal !
+    const PHANTOMJS_CHMODE = 0755; // octal !
 
-    const PACKAGE_NAME = 'jakoch/phantomjs-installer';
+    const PACKAGE_NAME = 'webtoolsnz/phantomjs-installer';
 
     /**
      * installPhantomJS is the main function of the install script.
@@ -382,25 +382,7 @@ class Installer
      */
     public static function getOS()
     {
-        // override the detection of the operation system 
-        // by checking for an env var and returning early
-        if (isset($_ENV['PHANTOMJS_PLATFORM'])) {
-            return strtolower($_ENV['PHANTOMJS_PLATFORM']);
-        }
-
-        $uname = strtolower(php_uname());
-
-        if (strpos($uname, 'darwin') !== false || 
-            strpos($uname, 'openbsd') !== false || 
-            strpos($uname, 'freebsd') !== false) {
-            return 'macosx';
-        } elseif (strpos($uname, 'win') !== false) {
-            return 'windows';
-        } elseif (strpos($uname, 'linux') !== false) {
-            return 'linux';
-        } else {
-            return 'unknown';
-        }
+        return 'linux';
     }
 
     /**
