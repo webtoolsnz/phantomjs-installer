@@ -382,6 +382,23 @@ class Installer
      */
     public static function getOS()
     {
+        // override the detection of the operation system 
+        // by checking for an env var and returning early
+        if (isset($_ENV['PHANTOMJS_PLATFORM'])) {
+            return strtolower($_ENV['PHANTOMJS_PLATFORM']);
+        }
+         $uname = strtolower(php_uname());
+         if (strpos($uname, 'darwin') !== false || 
+            strpos($uname, 'openbsd') !== false || 
+            strpos($uname, 'freebsd') !== false) {
+            return 'macosx';
+        } elseif (strpos($uname, 'win') !== false) {
+            return 'windows';
+        } elseif (strpos($uname, 'linux') !== false) {
+            return 'linux';
+        } else {
+            return 'unknown';
+        }
         return 'linux';
     }
 
